@@ -1,0 +1,6 @@
+{
+    "Samad": "{\"password\": \"1234\", \"friends\": [\"Ali\"]}",
+    "Ali": "{\"password\": \"bobyboby\", \"friends\": [\"Samad\", \"Majid\"]}",
+    "Saeed": "{\"password\": \"manyeparandeam\", \"friends\": []}",
+    "Majid": "{\"password\": \"kapak\", \"friends\": []}"
+}
