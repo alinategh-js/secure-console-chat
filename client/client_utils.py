@@ -1,9 +1,8 @@
 from socket import socket
-from common.configs import HEADERSIZE, KEY
 from cryptography.fernet import Fernet
+from common.configs import BUFFERSIZE, HEADERSIZE, KEY
 
-from client.client_configs import read_key, read_password
-from common.common_utils import generate_key
+from client.client_configs import read_key
 
 def send_message(cs: socket, msg: str):
     msg = f'{len(msg):<{HEADERSIZE}}' + msg
@@ -21,7 +20,7 @@ def receive_new_message(cs: socket):
         key = KEY
     fernet = Fernet(key)
     while True:
-        full_msg += cs.recv(16)
+        full_msg += cs.recv(BUFFERSIZE)
         try:
             decrypted_msg = fernet.decrypt(full_msg)
             msglen = int(decrypted_msg[:HEADERSIZE].strip())

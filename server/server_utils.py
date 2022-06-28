@@ -2,10 +2,10 @@ from datetime import datetime
 import json
 from typing import Dict
 from cryptography.fernet import Fernet
-from common.common_utils import generate_key
 
-from common.configs import HEADERSIZE, KEY
+from common.common_utils import generate_key
 from server.user import JsonUser, User, UserState
+from common.configs import BUFFERSIZE, HEADERSIZE, KEY
 from server.online_users_manager import get_online_user_by_name
 
 def send_message(user: User, msg: str):
@@ -26,7 +26,7 @@ def receive_new_message(user: User):
         key = KEY
     fernet = Fernet(key)
     while True:
-        full_msg += user.sock.recv(16)
+        full_msg += user.sock.recv(BUFFERSIZE)
         try:
             decrypted_msg = fernet.decrypt(full_msg)
             msglen = int(decrypted_msg[:HEADERSIZE].strip())
